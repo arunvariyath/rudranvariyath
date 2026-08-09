@@ -1,0 +1,59 @@
+name: Optimise Images
+
+# Runs whenever an image is added or changed under public/images/.
+# Generates thumbnails + public/data/media.json and commits them back,
+# which in turn triggers the Deploy workflow.
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'public/images/**'
+      - 'scripts/process-images.mjs'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Re-encode every image from scratch'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: optimise-images
+  cancel-in-progress: false
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  optimise:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+
+      - name: Install sharp
+        run: npm install --no-save sharp
+
+      - name: Process images
+        run: |
+          node scripts/process-images.mjs ${{ inputs.force && '--force' || '' }}
+
+      - name: Commit generated files
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add public/images public/data/media.json
+          if git diff --staged --quiet; then
+            echo "Nothing to commit — images already optimised."
+          else
+            git commit -m "chore: optimise images and regenerate media manifest"
+            git push
+          fi

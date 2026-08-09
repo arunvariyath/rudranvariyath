@@ -21,6 +21,7 @@ Built with **React 19 + TypeScript + Vite + Tailwind CSS v4 + Framer Motion**, d
   - [Updating gallery photos](#updating-gallery-photos)
   - [Updating family names](#updating-family-names)
   - [Adding a third language](#adding-a-third-language)
+- [Automatic Image Pipeline](#automatic-image-pipeline)
 - [Poems / YouTube Sync](#poems--youtube-sync)
 - [Deployment](#deployment)
 - [GitHub Actions Workflows](#github-actions-workflows)
@@ -246,18 +247,9 @@ Then add `newaward: { title: …, description: … }` under `awards.items` in **
 
 ### Updating gallery photos
 
-The gallery is generated from a count, so adding photos is a one-number change.
-
-```ts
-// src/data/content.ts
-export const galleryImages = Array.from({ length: 33 }, (_, i) => ({
-  imageSrc: `${ASSETS}/gallery/gallery_${String(i + 1).padStart(2, '0')}.webp`,
-}));
-```
-
-Add `gallery_34.webp` to the folder → change `33` to `34`. Done.
-
-Files must be named `gallery_01.webp`, `gallery_02.webp`, … (zero-padded to two digits).
+Drop the file into `public/images/gallery/` and push. Nothing else — links,
+thumbnails and dimensions are all generated. See
+[Automatic image pipeline](#automatic-image-pipeline).
 
 ---
 
@@ -416,6 +408,90 @@ The toggle picks it up automatically — no component changes needed.
 
 ---
 
+## Automatic Image Pipeline
+
+Add an image to a folder. Everything else happens on its own.
+
+```
+public/images/gallery/   →  gallery section
+public/images/books/     →  book covers
+public/images/awards/    →  award photos
+public/images/family/    →  family portraits
+```
+
+Push the file and the **Optimise Images** workflow will:
+
+1. Resize anything oversized down to 1600 px
+2. Generate a 640 px thumbnail for grid views
+3. Generate a tiny inline blur placeholder
+4. Record width, height and aspect ratio
+5. Write `public/data/media.json`
+6. Commit it all back — which triggers a redeploy
+
+No file under `src/` needs editing. The gallery count, the image links and the
+displayed sizes all come from the manifest.
+
+### Running it locally
+
+```bash
+npm install --no-save sharp
+node scripts/process-images.mjs
+```
+
+| Flag | Effect |
+|---|---|
+| *(none)* | Process new or changed files only |
+| `--force` | Re-encode everything from scratch |
+| `--replace` | Also shrink the originals in place, to keep the repo small |
+| `--dry-run` | Report what would happen, write nothing |
+
+### Why sizes matter
+
+Each entry stores real pixel dimensions, which are set as `width`/`height` on the
+`<img>`. The browser reserves the correct space before the image arrives, so the
+page never jumps while loading. Grids load the 640 px thumbnail; the full-size
+image is only fetched when a lightbox opens.
+
+> This is a large win here. Several award photos are **over 1.5 MB** — one is
+> 1.8 MB, larger than the entire JavaScript bundle. Thumbnails cut the initial
+> gallery payload by roughly 90%.
+
+### Naming files
+
+The filename becomes the **key** used to look up text in the locale files:
+
+| Filename | Key |
+|---|---|
+| `nilav.webp` | `nilav` |
+| `Red_Rose.jpg` | `red-rose` |
+| `Bharat Sevak Samaj.png` | `bharat-sevak-samaj` |
+
+For books and awards, name the file to match the key in `books.items` /
+`awards.items`. A file with no matching entry still displays — it just falls back
+to a title derived from the filename, so nothing breaks while you add the text.
+
+Gallery and family images need no locale entry at all.
+
+### Generated files
+
+```
+public/images/<category>/_opt/     ← derivatives, committed, don't edit by hand
+public/images/.cache.json          ← re-encode cache, commit it
+public/data/media.json             ← the manifest the site reads
+```
+
+The cache prevents re-encoding unchanged images, which also avoids the quality
+loss that comes from repeatedly re-compressing a lossy format.
+
+### Before this works
+
+The images currently load from the `feature_1` branch over
+`raw.githubusercontent.com`. Move them into `public/images/<category>/` for the
+pipeline to see them. Until you do, the site falls back to the hardcoded lists in
+`src/data/content.ts`, so nothing breaks in the meantime.
+
+---
+
 ## Poems / YouTube Sync
 
 The Poems section reads from **`public/data/poems.json`**, which is refreshed automatically.
@@ -522,6 +598,14 @@ Both live in `.github/workflows/`.
 | **Triggers** | Push to `main`/`master`, PRs (build only), manual dispatch |
 | **Steps** | Checkout → Node 24 → install → `tsc --noEmit` → `vite build` → add `.nojekyll` → upload → deploy |
 | **Notes** | PRs are build-checked but never deployed. Falls back to `npm install` if there's no lockfile. Concurrency-guarded so deploys never overlap. Self-enables Pages via `enablement: true`. |
+
+### `optimize-images.yml` — Image Processing
+
+| | |
+|---|---|
+| **Triggers** | Push touching `public/images/**`, manual dispatch |
+| **Steps** | Checkout → Node 24 → install sharp → `process-images.mjs` → commit |
+| **Notes** | Only commits when something changed. The commit triggers `deploy.yml`, so new photos go live automatically. Manual runs accept a **force** input to re-encode everything. |
 
 ### `update-poems.yml` — Daily YouTube Sync
 

@@ -1,17 +1,20 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Award, Trophy } from 'lucide-react';
-import { awards } from '../data/content';
 import { useLazyLoad } from '../hooks/useLazyLoad';
+import { useMediaManifest } from '../hooks/useMediaManifest';
 import { useLanguage } from '../i18n/LanguageProvider';
 import { Lightbox } from './Lightbox';
 
 export function Awards() {
   const { ref, isVisible } = useLazyLoad<HTMLDivElement>({ threshold: 0.1 });
   const { t } = useLanguage();
+  const { items } = useMediaManifest('awards');
   const [selected, setSelected] = useState<number | null>(null);
 
-  const copy = (key: string) => t.awards.items[key] ?? { title: key, description: '' };
+  /** Locale text keyed by filename; unknown keys fall back to the filename. */
+  const copy = (key: string, fallbackTitle: string) =>
+    t.awards.items[key] ?? { title: fallbackTitle, description: '' };
 
   return (
     <section
@@ -43,8 +46,8 @@ export function Awards() {
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {awards.map((award, index) => {
-            const { title, description } = copy(award.key);
+          {items.map((award, index) => {
+            const { title, description } = copy(award.key, award.title);
             return (
               <motion.div
                 key={award.key}
@@ -55,12 +58,17 @@ export function Awards() {
                 onClick={() => setSelected(index)}
               >
                 <div className="relative bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 h-full">
-                  <div className="aspect-[4/3] overflow-hidden">
+                  <div
+                    className="aspect-[4/3] overflow-hidden bg-cover bg-center"
+                    style={award.blur ? { backgroundImage: `url(${award.blur})` } : undefined}
+                  >
                     <img
-                      src={award.imageSrc}
+                      src={award.thumb}
                       alt={title}
                       loading="lazy"
                       decoding="async"
+                      width={award.width}
+                      height={award.height}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
@@ -71,9 +79,11 @@ export function Awards() {
                         {title}
                       </h3>
                     </div>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
-                      {description}
-                    </p>
+                    {description && (
+                      <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
+                        {description}
+                      </p>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -84,12 +94,18 @@ export function Awards() {
 
       <Lightbox
         open={selected !== null}
-        imageSrc={selected !== null ? awards[selected].imageSrc : undefined}
-        title={selected !== null ? copy(awards[selected].key).title : undefined}
-        description={selected !== null ? copy(awards[selected].key).description : undefined}
+        imageSrc={selected !== null ? items[selected]?.src : undefined}
+        title={
+          selected !== null ? copy(items[selected].key, items[selected].title).title : undefined
+        }
+        description={
+          selected !== null
+            ? copy(items[selected].key, items[selected].title).description
+            : undefined
+        }
         onClose={() => setSelected(null)}
-        onPrev={() => setSelected((p) => (p === null ? p : (p - 1 + awards.length) % awards.length))}
-        onNext={() => setSelected((p) => (p === null ? p : (p + 1) % awards.length))}
+        onPrev={() => setSelected((p) => (p === null ? p : (p - 1 + items.length) % items.length))}
+        onNext={() => setSelected((p) => (p === null ? p : (p + 1) % items.length))}
       />
     </section>
   );

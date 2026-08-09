@@ -1,17 +1,23 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { BookOpen } from 'lucide-react';
-import { books } from '../data/content';
 import { useLazyLoad } from '../hooks/useLazyLoad';
+import { useMediaManifest } from '../hooks/useMediaManifest';
 import { useLanguage } from '../i18n/LanguageProvider';
 import { Lightbox } from './Lightbox';
 
 export function Books() {
   const { ref, isVisible } = useLazyLoad<HTMLDivElement>({ threshold: 0.1 });
   const { t } = useLanguage();
+  const { items } = useMediaManifest('books');
   const [selected, setSelected] = useState<number | null>(null);
 
-  const copy = (key: string) => t.books.items[key] ?? { title: key, description: '' };
+  /**
+   * Locale text keyed by filename. A newly added image with no locale entry
+   * still renders, using its filename as the title.
+   */
+  const copy = (key: string, fallbackTitle: string) =>
+    t.books.items[key] ?? { title: fallbackTitle, description: '' };
 
   return (
     <section
@@ -40,29 +46,36 @@ export function Books() {
         </motion.div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8">
-          {books.map((book, index) => {
-            const { title, description } = copy(book.key);
+          {items.map((book, index) => {
+            const { title, description } = copy(book.key, book.title);
             return (
               <motion.div
                 key={book.key}
                 initial={{ opacity: 0, y: 30 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: (index % 5) * 0.1 }}
                 className="group cursor-pointer"
                 onClick={() => setSelected(index)}
               >
-                <div className="relative aspect-[3/4] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 bg-slate-100 dark:bg-slate-800">
+                <div
+                  className="relative aspect-[3/4] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 bg-slate-100 dark:bg-slate-800 bg-cover bg-center"
+                  style={book.blur ? { backgroundImage: `url(${book.blur})` } : undefined}
+                >
                   <img
-                    src={book.imageSrc}
+                    src={book.thumb}
                     alt={title}
                     loading="lazy"
                     decoding="async"
+                    width={book.width}
+                    height={book.height}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/85 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <p className="text-white text-xs leading-snug line-clamp-3">{description}</p>
-                  </div>
+                  {description && (
+                    <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                      <p className="text-white text-xs leading-snug line-clamp-3">{description}</p>
+                    </div>
+                  )}
                 </div>
                 <div className="mt-4 text-center">
                   <h3 className="font-semibold text-sm text-slate-800 dark:text-slate-200 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
@@ -77,12 +90,18 @@ export function Books() {
 
       <Lightbox
         open={selected !== null}
-        imageSrc={selected !== null ? books[selected].imageSrc : undefined}
-        title={selected !== null ? copy(books[selected].key).title : undefined}
-        description={selected !== null ? copy(books[selected].key).description : undefined}
+        imageSrc={selected !== null ? items[selected]?.src : undefined}
+        title={
+          selected !== null ? copy(items[selected].key, items[selected].title).title : undefined
+        }
+        description={
+          selected !== null
+            ? copy(items[selected].key, items[selected].title).description
+            : undefined
+        }
         onClose={() => setSelected(null)}
-        onPrev={() => setSelected((p) => (p === null ? p : (p - 1 + books.length) % books.length))}
-        onNext={() => setSelected((p) => (p === null ? p : (p + 1) % books.length))}
+        onPrev={() => setSelected((p) => (p === null ? p : (p - 1 + items.length) % items.length))}
+        onNext={() => setSelected((p) => (p === null ? p : (p + 1) % items.length))}
       />
     </section>
   );
