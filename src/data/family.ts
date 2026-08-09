@@ -37,40 +37,40 @@ export interface Person {
 /** Every person in the tree. Keys match `family.members` in the locale files. */
 export const people: Record<string, Person> = {
   // ── Core line ────────────────────────────────────────────────
-  father: { gender: 'male', photo: null },
-  mother: { gender: 'female', photo: null },
-  poet: { gender: 'male', photo: null, isPoet: true },
-  wife: { gender: 'female', photo: null },
-  arun: { gender: 'male', photo: null },
-  aparna: { gender: 'female', photo: null },
-  anjitha: { gender: 'female', photo: null },
-  vijil: { gender: 'male', photo: null },
-  anoop: { gender: 'male', photo: null },
-  adhisree: { gender: 'female', photo: null },
-  rishikesh: { gender: 'male', photo: null },
+  father: { gender: 'male', photo: 'father.webp' },
+  mother: { gender: 'female', photo: 'mother.webp' },
+  poet: { gender: 'male', photo: 'rudran.webp', isPoet: true },
+  wife: { gender: 'female', photo: 'shylaja.webp' },
+  arun: { gender: 'male', photo: 'arun.webp' },
+  aparna: { gender: 'female', photo: 'aparna.webp' },
+  anjitha: { gender: 'female', photo: 'anjitha.webp' },
+  vijil: { gender: 'male', photo: 'vijil.webp' },
+  anoop: { gender: 'male', photo: 'anoop.webp' },
+  adhisree: { gender: 'female', photo: 'adhisree.webp' },
+  rishikesh: { gender: 'male', photo: 'rishikesh.webp' },
 
   // ── Wife's family ────────────────────────────────────────────
-  venugopalamenon: { gender: 'male', photo: null },
-  nandini: { gender: 'female', photo: null },
-  baburaj: { gender: 'male', photo: null },
-  anuk: { gender: 'female', photo: null },
-  anjana: { gender: 'female', photo: null },
-  adhidev: { gender: 'male', photo: null },
-  archana: { gender: 'female', photo: null },
-  biju: { gender: 'male', photo: null },
-  anilkumar: { gender: 'male', photo: null },
-  keerthy: { gender: 'female', photo: null },
-  anandhakrishnan: { gender: 'male', photo: null },
-  aryanandha: { gender: 'female', photo: null },
+  venugopalamenon: { gender: 'male', photo: 'venugopalamenon.webp' },
+  nandini: { gender: 'female', photo: 'nandini.webp' },
+  baburaj: { gender: 'male', photo: 'baburaj.webp' },
+  anuk: { gender: 'female', photo: 'anuk.webp' },
+  anjana: { gender: 'female', photo: 'anjana.webp' },
+  adhidev: { gender: 'male', photo: 'adhidev.webp' },
+  archana: { gender: 'female', photo: 'archana.webp' },
+  biju: { gender: 'male', photo: 'biju.webp' },
+  anilkumar: { gender: 'male', photo: 'anilkumar.webp' },
+  keerthy: { gender: 'female', photo: 'keerthy.webp' },
+  anandhakrishnan: { gender: 'male', photo: 'anandhakrishnan.webp' },
+  aryanandha: { gender: 'female', photo: 'aryanandha.webp' },
 
   // ── Daughter-in-law's family ─────────────────────────────────
-  mohandas: { gender: 'male', photo: null },
-  jayarani: { gender: 'female', photo: null },
+  mohandas: { gender: 'male', photo: 'mohandas.webp' },
+  jayarani: { gender: 'female', photo: 'jayarani.webp' },
 
   // ── Son-in-law's family ──────────────────────────────────────
-  das: { gender: 'male', photo: null },
-  vijaya: { gender: 'female', photo: null },
-  vipin: { gender: 'male', photo: null },
+  das: { gender: 'male', photo: 'das.webp' },
+  vijaya: { gender: 'female', photo: 'vijaya.webp' },
+  vipin: { gender: 'male', photo: 'vipin.webp' },
 };
 
 /** A person, optionally paired with their spouse. */
