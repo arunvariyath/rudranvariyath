@@ -228,8 +228,11 @@ export const en = {
       anjitha: { name: 'Anjitha R Variyath', relation: 'Daughter', context: "Rudran's daughter", occupation: '' },
       vijil: { name: 'Vijil', relation: 'Son-in-law', context: "Anjitha's husband", occupation: '' },
       anoop: { name: 'Anoop R Variyath', relation: 'Son', context: "Rudran's son", occupation: '' },
+      malavika: { name: 'Malavika', relation: 'Daughter-in-law', context: "Anoop's wife", occupation: '' },
       adhisree: { name: 'Adhisree A V', relation: 'Granddaughter', context: "Arun & Aparna's daughter", occupation: '' },
+
       rishikesh: { name: 'Rishikesh', relation: 'Grandson', context: "Anjitha & Vijil's son", occupation: '' },
+      rithudev: { name: 'Rithudev', relation: 'Grandson', context: "Anjitha & Vijil's son", occupation: '' },
 
       // ── Shylaja's family (the poet's wife) ─────────────────
       venugopalamenon: { name: 'Venugopala Menon', relation: 'Father', context: "Rudran's father-in-law", occupation: '' },
@@ -253,6 +256,14 @@ export const en = {
       das: { name: 'Das', relation: 'Father', context: "Anjitha's father-in-law", occupation: '' },
       vijaya: { name: 'Vijaya', relation: 'Mother', context: "Anjitha's mother-in-law", occupation: '' },
       vipin: { name: 'Vipin', relation: 'Brother', context: "Vijil's brother", occupation: '' },
+
+
+        // ── Malavika's family (Anoop's wife) ──────────────────────
+      haridas: { name: 'Haridas', relation: 'Father', context: "Anoop's father-in-law", occupation: '' },
+      malu_mom: { name: 'malu_mom', relation: 'Mother', context: "Anoop's mother-in-law", occupation: '' },
+      shreya: { name: 'shreya', relation: 'Mother', context: "Anoop's sister-in-law", occupation: '' },
+      chinju: { name: 'chinju', relation: 'Mother', context: "Anoop's sister-in-law", occupation: '' },
+
     } as Record<
       string,
       { name: string; relation: string; context: string; occupation: string }

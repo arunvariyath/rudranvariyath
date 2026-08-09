@@ -48,6 +48,8 @@ export const people: Record<string, Person> = {
   anoop: { gender: 'male', photo: 'anoop.webp' },
   adhisree: { gender: 'female', photo: 'adhisree.webp' },
   rishikesh: { gender: 'male', photo: 'rishikesh.webp' },
+  rithudev: { gender: 'male', photo: 'rithudev.webp' },
+  malavika: { gender: 'female', photo: 'malavika.webp' },
 
   // ── Wife's family ────────────────────────────────────────────
   venugopalamenon: { gender: 'male', photo: 'venugopalamenon.webp' },
@@ -66,6 +68,12 @@ export const people: Record<string, Person> = {
   // ── Daughter-in-law's family ─────────────────────────────────
   mohandas: { gender: 'male', photo: 'mohandas.webp' },
   jayarani: { gender: 'female', photo: 'jayarani.webp' },
+
+  // ── Daughter-in-law's family ─────────────────────────────────
+  haridas: { gender: 'male', photo: 'haridas.webp' },
+  malu_mom: { gender: 'female', photo: 'malu_mom.webp' },
+  shreya: { gender: 'female', photo: 'shreya.webp' },
+  chinju: { gender: 'female', photo: 'chinju.webp' },
 
   // ── Son-in-law's family ──────────────────────────────────────
   das: { gender: 'male', photo: 'das.webp' },
@@ -101,7 +109,7 @@ export const coreGenerations: CoreGeneration[] = [
     units: [
       { primary: 'arun', spouse: 'aparna' },
       { primary: 'anjitha', spouse: 'vijil' },
-      { primary: 'anoop' },
+      { primary: 'anoop', spouse: 'malavika' },
     ],
   },
   {
@@ -109,6 +117,7 @@ export const coreGenerations: CoreGeneration[] = [
     units: [
       { primary: 'adhisree', parentId: 'arun' },
       { primary: 'rishikesh', parentId: 'anjitha' },
+      { primary: 'rithudev', parentId: 'anjitha' },
     ],
   },
 ];
