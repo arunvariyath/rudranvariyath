@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T08:00:33.921Z",
+  "generatedAt": "2026-08-09T08:08:46.812Z",
   "categories": {
     "gallery": [],
     "books": [],
@@ -73,7 +73,7 @@
         "width": 400,
         "height": 400,
         "aspectRatio": 1,
-        "blur": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAQCdASoOAA4ABIByJbACdAEemBq7uAAA/hiKlgUEVXxjd2mK7BFLV0Ea6issMghH9dS6vXH1DrVS3qnVKuQNPoND/Vn9awFWJikcI5DH6NfLPr5nkAAA"
+        "blur": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADQAQCdASoOAA4ABIByJagCdACZaPbNAAD+fGlo3LIaaEubFiYbALmZtBA/gnzl5vBZYD6kf6sVe/hpt1nAr+J8ddZsLwbZCrR6iTAk8wAAAA=="
       },
       {
         "key": "aparna",
@@ -106,6 +106,16 @@
         "blur": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAABwAgCdASoOAA4ABIByJaACdH8AGLvXYqsrnJLIAP5kzjHquD7qiYCdVUbs3isBZhwgKL8ENw7cXX9zEZWyeSDeT9K5cgoa0aONvK1vrQfDdpPJFfsUK32zceNzohN1UAA="
       },
       {
+        "key": "aryanandha",
+        "title": "Aryanandha",
+        "src": "images/family/_opt/aryanandha.webp",
+        "thumb": "images/family/_opt/aryanandha.thumb.webp",
+        "width": 400,
+        "height": 400,
+        "aspectRatio": 1,
+        "blur": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAQAgCdASoOAA4ABIByJbACdAECwMXcVOBoAP7urw3xHqve2m2+tWEdWh/aRaBkQsJKmowrzIPCZoB01O++kZ/a9k8j0Y5+/tthWbAfLsSHPx7o6maOu0ro6Bgcn5iH/yRKAAAA"
+      },
+      {
         "key": "baburaj",
         "title": "Baburaj",
         "src": "images/family/_opt/baburaj.webp",
@@ -124,6 +134,16 @@
         "height": 400,
         "aspectRatio": 1,
         "blur": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAQCdASoOAA4ABIByJYgCdAEDRVZjuwAA+uPpGP11m/QOk0RX0osjiHbu9SCU40as5Y67ViBDZrhAPBLV/dg+IUAaptfYR7gvWFAEW75S87ZIwCnXgAAA"
+      },
+      {
+        "key": "das",
+        "title": "Das",
+        "src": "images/family/_opt/das.webp",
+        "thumb": "images/family/_opt/das.thumb.webp",
+        "width": 400,
+        "height": 400,
+        "aspectRatio": 1,
+        "blur": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADQAQCdASoOAA4ABIByJbACdADZOTxGwAD+kbdcpWVNVSWzTN8sQz52lA+dvQov414RFARp9DO3DbwFZXz7uQgQjxGJT5r9Sixzre6FJ9nI2AAA"
       },
       {
         "key": "jayarani",
@@ -223,7 +243,17 @@
         "width": 400,
         "height": 400,
         "aspectRatio": 1,
-        "blur": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAACwAQCdASoOAA4ABIByJYwCdACC5MzQAP7KbEGVuRzqMkFR6WvEQVDgx9i61owGKI3j1r8JwDC0r2MYQ2cjFdf12M+mgDG6wVpgZvDLOO0veflgwc6gAA=="
+        "blur": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAQAgCdASoOAA4ABIByJQBWACPySodiflIwAPlHd5Vk5EFQFTygerhY7qysAsFYKZrqYe4gKrs+WbBfKBtlNCH1wqJQMUfXD2cVPUw2jAA="
+      },
+      {
+        "key": "vipin",
+        "title": "Vipin",
+        "src": "images/family/_opt/vipin.webp",
+        "thumb": "images/family/_opt/vipin.thumb.webp",
+        "width": 400,
+        "height": 400,
+        "aspectRatio": 1,
+        "blur": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAQAgCdASoOAA4ABIByJbACdAEKTWGsfHgAAP7ypS1kh9/rFp6b5HkfkIC1r6giZAv510EBVLhT1CYfkD7dMdFNmJSGddgia3lAAA=="
       }
     ]
   }
