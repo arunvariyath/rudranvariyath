@@ -18,7 +18,7 @@
  * ---------------------------------------------------------------
  */
 
-import { readdir, mkdir, writeFile, readFile, stat, copyFile } from 'node:fs/promises';
+import { readdir, mkdir, writeFile, readFile, stat } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
@@ -269,14 +269,25 @@ async function main() {
   }
 
   const total = Object.values(manifest.categories).reduce((n, list) => n + list.length, 0);
-  if (total === 0) {
-    console.log('\nNo images found. Manifest not written.\n');
-    return;
-  }
 
+  // The manifest is always written, even when empty. Downstream steps (and the
+  // website) can then rely on the file existing. An empty category simply makes
+  // the site fall back to the hardcoded list in src/data/content.ts.
   await mkdir(path.dirname(MANIFEST_PATH), { recursive: true });
   await writeFile(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`);
+  await mkdir(IMAGES_DIR, { recursive: true });
   await writeFile(CACHE_PATH, `${JSON.stringify(nextCache, null, 2)}\n`);
+
+  if (total === 0) {
+    console.log(
+      '\nNo images found in public/images/{' +
+        CATEGORIES.join(',') +
+        '}/\n' +
+        'Wrote an empty manifest — the site will keep using the fallback lists\n' +
+        'in src/data/content.ts until images are added.\n'
+    );
+    return;
+  }
 
   console.log(`\nWrote ${total} entries to public/data/media.json\n`);
 

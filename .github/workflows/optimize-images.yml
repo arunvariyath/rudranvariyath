@@ -1,8 +1,8 @@
 name: Optimise Images
 
 # Runs whenever an image is added or changed under public/images/.
-# Generates thumbnails + public/data/media.json and commits them back,
-# which in turn triggers the Deploy workflow.
+# Generates thumbnails + public/data/media.json, commits them back,
+# then explicitly dispatches the Deploy workflow.
 
 on:
   push:
@@ -19,6 +19,9 @@ on:
 
 permissions:
   contents: write
+  # Required by `gh workflow run` below. A push made with GITHUB_TOKEN does
+  # NOT trigger other workflows, so Deploy has to be dispatched by hand.
+  actions: write
 
 concurrency:
   group: optimise-images
@@ -43,17 +46,33 @@ jobs:
         run: npm install --no-save sharp
 
       - name: Process images
-        run: |
-          node scripts/process-images.mjs ${{ inputs.force && '--force' || '' }}
+        run: node scripts/process-images.mjs ${{ inputs.force && '--force' || '' }}
 
       - name: Commit generated files
+        id: commit
         run: |
           git config user.name  'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add public/images public/data/media.json
+
+          # Stage only paths that exist — `git add` fails hard on a pathspec
+          # that matches nothing, which is what broke the first run.
+          for target in public/images public/data; do
+            if [ -e "$target" ]; then
+              git add -A "$target"
+            fi
+          done
+
           if git diff --staged --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Nothing to commit — images already optimised."
           else
             git commit -m "chore: optimise images and regenerate media manifest"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Trigger deploy
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref "${{ github.ref_name }}"

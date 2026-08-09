@@ -1,7 +1,7 @@
 name: Update Poems from YouTube
 
-# Keeps public/data/poems.json in sync with the YouTube channel.
-# Committing that file automatically triggers the Deploy workflow.
+# Keeps public/data/poems.json in sync with the YouTube channel,
+# then explicitly dispatches the Deploy workflow.
 
 on:
   schedule:
@@ -11,6 +11,9 @@ on:
 
 permissions:
   contents: write
+  # Required by `gh workflow run` below. A push made with GITHUB_TOKEN does
+  # NOT trigger other workflows, so Deploy has to be dispatched by hand.
+  actions: write
 
 concurrency:
   group: update-poems
@@ -38,13 +41,29 @@ jobs:
         run: python scripts/update_poems.py
 
       - name: Commit changes if any
+        id: commit
         run: |
           git config user.name  'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+          if [ ! -f public/data/poems.json ]; then
+            echo "poems.json was not produced — nothing to do."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           git add public/data/poems.json
           if git diff --staged --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No changes to commit."
           else
-            git commit -m "chore: sync poems from YouTube [skip ci]"
+            git commit -m "chore: sync poems from YouTube"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Trigger deploy
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref "${{ github.ref_name }}"

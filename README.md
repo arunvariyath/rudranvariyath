@@ -426,7 +426,7 @@ Push the file and the **Optimise Images** workflow will:
 3. Generate a tiny inline blur placeholder
 4. Record width, height and aspect ratio
 5. Write `public/data/media.json`
-6. Commit it all back — which triggers a redeploy
+6. Commit it all back, then dispatch the Deploy workflow
 
 No file under `src/` needs editing. The gallery count, the image links and the
 displayed sizes all come from the manifest.
@@ -604,16 +604,37 @@ Both live in `.github/workflows/`.
 | | |
 |---|---|
 | **Triggers** | Push touching `public/images/**`, manual dispatch |
-| **Steps** | Checkout → Node 24 → install sharp → `process-images.mjs` → commit |
-| **Notes** | Only commits when something changed. The commit triggers `deploy.yml`, so new photos go live automatically. Manual runs accept a **force** input to re-encode everything. |
+| **Steps** | Checkout → Node 24 → install sharp → `process-images.mjs` → commit → dispatch Deploy |
+| **Notes** | Only commits when something changed. Manual runs accept a **force** input to re-encode everything. |
 
 ### `update-poems.yml` — Daily YouTube Sync
 
 | | |
 |---|---|
 | **Triggers** | Daily at 00:30 UTC (06:00 IST), manual dispatch |
-| **Steps** | Checkout → Python 3.12 → install `yt-dlp` → run `scripts/update_poems.py` → commit if changed |
-| **Notes** | Commits only when the list actually changed. Refuses to overwrite with an empty list if YouTube errors. The commit triggers `deploy.yml`, so new poems go live automatically. |
+| **Steps** | Checkout → Python 3.12 → install `yt-dlp` → `update_poems.py` → commit if changed → dispatch Deploy |
+| **Notes** | Commits only when the list actually changed. Refuses to overwrite with an empty list if YouTube errors. |
+
+### How the workflows chain
+
+A push made with `GITHUB_TOKEN` **does not** trigger other workflows — GitHub
+blocks this to prevent runaway recursion. So the two content workflows cannot
+rely on their commit starting a deploy; they call it explicitly instead:
+
+```yaml
+permissions:
+  contents: write
+  actions: write        # required for the dispatch below
+
+- name: Trigger deploy
+  if: steps.commit.outputs.changed == 'true'
+  env:
+    GH_TOKEN: ${{ github.token }}
+  run: gh workflow run deploy.yml --ref "${{ github.ref_name }}"
+```
+
+`workflow_dispatch` is one of only two events exempt from the recursion block,
+so this works with the built-in token — no personal access token needed.
 
 Run either one manually from the **Actions** tab → select the workflow → **Run workflow**.
 
@@ -692,6 +713,12 @@ Pages has never been enabled on the repo. See
 The workflow tried to enable Pages itself and was refused — `GITHUB_TOKEN` cannot
 create a Pages site. This is not fixable in YAML. Enable Pages manually
 (step 1) and make sure workflow permissions are **Read and write** (step 2).
+
+**`could not create workflow dispatch event: HTTP 403`**
+The `Trigger deploy` step needs `actions: write`. Both workflows already declare
+it, so a 403 means org policy is overriding them — grant **Read and write
+permissions** under **Settings → Actions → General**, or remove the
+`Trigger deploy` step and run Deploy manually after content updates.
 
 **`Node 20 is being deprecated. This workflow is running with Node 24 by default.`**
 Informational, not an error — it is confirming you are *already* on Node 24.
