@@ -462,13 +462,25 @@ the daily workflow will overwrite manual edits on its next run.
 
 ## Deployment
 
-### First-time setup (once)
+### First-time setup
 
 1. Push this repo to GitHub.
-2. Go to **Settings → Pages**.
-3. Under **Source**, choose **GitHub Actions**.
+2. Go to **Settings → Pages → Build and deployment** and set **Source** to
+   **GitHub Actions**.
 
-That's it. Every push to `main` rebuilds and redeploys automatically.
+Every push to `main` then rebuilds and redeploys automatically.
+
+> The workflow passes `enablement: true` to `configure-pages`, so it will try to
+> create the Pages site itself on the first run. That covers most cases, but if
+> the repository is under an organisation with restricted Actions permissions
+> the API call is rejected — in that case step 2 above is required. Doing it
+> manually is harmless either way.
+
+### Required repository permissions
+
+**Settings → Actions → General → Workflow permissions** must be set to
+**Read and write permissions**. Both workflows need it — deploy to publish
+Pages, and the poem sync to commit `poems.json`.
 
 ### Repo name / URL
 
@@ -489,8 +501,8 @@ Both live in `.github/workflows/`.
 | | |
 |---|---|
 | **Triggers** | Push to `main`/`master`, PRs (build only), manual dispatch |
-| **Steps** | Checkout → Node 20 → install → `tsc --noEmit` → `vite build` → add `.nojekyll` → upload → deploy |
-| **Notes** | PRs are build-checked but never deployed. Falls back to `npm install` if there's no lockfile. Concurrency-guarded so deploys never overlap. |
+| **Steps** | Checkout → Node 24 → install → `tsc --noEmit` → `vite build` → add `.nojekyll` → upload → deploy |
+| **Notes** | PRs are build-checked but never deployed. Falls back to `npm install` if there's no lockfile. Concurrency-guarded so deploys never overlap. Self-enables Pages via `enablement: true`. |
 
 ### `update-poems.yml` — Daily YouTube Sync
 
@@ -569,8 +581,22 @@ The Noto Sans Malayalam webfont didn't load. Check the Google Fonts `<link>` in 
 **Poems section is empty**
 Check `public/data/poems.json` exists and is valid JSON. Run the sync manually, or check the **Actions** tab for a failed `update-poems` run.
 
+**`Get Pages site failed … HttpError: Not Found`**
+GitHub Pages has never been enabled on the repository, so `configure-pages` gets a
+404 when it looks for the site. The workflow now passes `enablement: true` to create
+it automatically. If it still fails, enable it by hand:
+**Settings → Pages → Build and deployment → Source = GitHub Actions**, then re-run.
+
 **Actions fail with a permissions error**
-Go to **Settings → Actions → General → Workflow permissions** and enable **Read and write permissions**.
+Go to **Settings → Actions → General → Workflow permissions** and enable
+**Read and write permissions**.
+
+**`Node.js 20 actions are deprecated`**
+All actions are pinned to Node 24-capable majors (`checkout@v5`, `setup-node@v5`,
+`setup-python@v6`, `upload-pages-artifact@v4`, `deploy-pages@v5`) and both workflows
+set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true`. If a warning still appears, a
+transitive action hasn't shipped a Node 24 build yet — it's a warning, not a failure,
+and clears when that action updates.
 
 ---
 
