@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T07:50:19.328Z",
+  "generatedAt": "2026-08-09T08:00:33.921Z",
   "categories": {
     "gallery": [],
     "books": [],
@@ -176,10 +176,10 @@
         "blur": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAACwAQCdASoOAA4ABIByJZgCdADQdEqwAPcqBtK3Z4cRHRVBAZiTvcDfGkIvH/VHqVUJTrlV1eKJRT6HcHYifH0V06anm1IeQ+muIwqZOAA="
       },
       {
-        "key": "nandhini",
-        "title": "Nandhini",
-        "src": "images/family/_opt/nandhini.webp",
-        "thumb": "images/family/_opt/nandhini.thumb.webp",
+        "key": "nandini",
+        "title": "Nandini",
+        "src": "images/family/_opt/nandini.webp",
+        "thumb": "images/family/_opt/nandini.thumb.webp",
         "width": 400,
         "height": 400,
         "aspectRatio": 1,
