@@ -462,25 +462,44 @@ the daily workflow will overwrite manual edits on its next run.
 
 ## Deployment
 
-### First-time setup
+### First-time setup — required, one time
 
-1. Push this repo to GitHub.
-2. Go to **Settings → Pages → Build and deployment** and set **Source** to
-   **GitHub Actions**.
+> ⚠️ **The deploy workflow cannot do this for you.** `GITHUB_TOKEN` is not
+> allowed to create a Pages site, so the first run will fail until you do this
+> by hand. It only needs doing once.
 
-Every push to `main` then rebuilds and redeploys automatically.
+**1. Enable Pages**
 
-> The workflow passes `enablement: true` to `configure-pages`, so it will try to
-> create the Pages site itself on the first run. That covers most cases, but if
-> the repository is under an organisation with restricted Actions permissions
-> the API call is rejected — in that case step 2 above is required. Doing it
-> manually is harmless either way.
+&nbsp;&nbsp;&nbsp;&nbsp;**Settings → Pages → Build and deployment → Source = `GitHub Actions`**
 
-### Required repository permissions
+&nbsp;&nbsp;&nbsp;&nbsp;Not "Deploy from a branch". Save.
 
-**Settings → Actions → General → Workflow permissions** must be set to
-**Read and write permissions**. Both workflows need it — deploy to publish
-Pages, and the poem sync to commit `poems.json`.
+**2. Allow workflows to write**
+
+&nbsp;&nbsp;&nbsp;&nbsp;**Settings → Actions → General → Workflow permissions → Read and write permissions**
+
+&nbsp;&nbsp;&nbsp;&nbsp;Needed to publish Pages and to let the poem sync commit `poems.json`.
+
+**3. Re-run the workflow** — Actions tab → the failed run → **Re-run all jobs**.
+
+After this, every push to `main` rebuilds and redeploys automatically.
+
+### If you can't change those settings
+
+On org-owned repos those settings may be locked by an administrator. In that
+case, deploy to a `gh-pages` branch instead — it needs only `contents: write`
+and no Pages-via-Actions configuration:
+
+```yaml
+# Replace the "Setup Pages" / "Upload artifact" / deploy job with:
+- name: Deploy to gh-pages branch
+  uses: peaceiris/actions-gh-pages@v4
+  with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    publish_dir: ./dist
+```
+
+Then set **Settings → Pages → Source = Deploy from a branch → `gh-pages` / root**.
 
 ### Repo name / URL
 
@@ -581,22 +600,19 @@ The Noto Sans Malayalam webfont didn't load. Check the Google Fonts `<link>` in 
 **Poems section is empty**
 Check `public/data/poems.json` exists and is valid JSON. Run the sync manually, or check the **Actions** tab for a failed `update-poems` run.
 
-**`Get Pages site failed … HttpError: Not Found`**
-GitHub Pages has never been enabled on the repository, so `configure-pages` gets a
-404 when it looks for the site. The workflow now passes `enablement: true` to create
-it automatically. If it still fails, enable it by hand:
-**Settings → Pages → Build and deployment → Source = GitHub Actions**, then re-run.
+**`Get Pages site failed … Not Found`**
+Pages has never been enabled on the repo. See
+[First-time setup](#first-time-setup--required-one-time) — step 1.
 
-**Actions fail with a permissions error**
-Go to **Settings → Actions → General → Workflow permissions** and enable
-**Read and write permissions**.
+**`Create Pages site failed … Resource not accessible by integration`**
+The workflow tried to enable Pages itself and was refused — `GITHUB_TOKEN` cannot
+create a Pages site. This is not fixable in YAML. Enable Pages manually
+(step 1) and make sure workflow permissions are **Read and write** (step 2).
 
-**`Node.js 20 actions are deprecated`**
-All actions are pinned to Node 24-capable majors (`checkout@v5`, `setup-node@v5`,
-`setup-python@v6`, `upload-pages-artifact@v4`, `deploy-pages@v5`) and both workflows
-set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true`. If a warning still appears, a
-transitive action hasn't shipped a Node 24 build yet — it's a warning, not a failure,
-and clears when that action updates.
+**`Node 20 is being deprecated. This workflow is running with Node 24 by default.`**
+Informational, not an error — it is confirming you are *already* on Node 24.
+Nothing to do. Do **not** set `ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true`;
+that pins you *back* to the deprecated runtime.
 
 ---
 

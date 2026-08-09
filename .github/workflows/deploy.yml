@@ -53,12 +53,14 @@ jobs:
       - name: Disable Jekyll processing
         run: touch dist/.nojekyll
 
+      # Requires Pages to be enabled first:
+      #   Settings → Pages → Build and deployment → Source = "GitHub Actions"
+      #
+      # `enablement: true` is deliberately NOT set here. GITHUB_TOKEN cannot
+      # create a Pages site (the API returns 403 "Resource not accessible by
+      # integration"), so it only replaces a clear 404 with a confusing 403.
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        with:
-          # Creates the Pages site on the first run instead of failing with
-          # "Get Pages site failed / Not Found". Requires `pages: write`.
-          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
