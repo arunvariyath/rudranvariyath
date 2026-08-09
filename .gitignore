@@ -1,0 +1,126 @@
+# ---------------------------------------------------------------
+#  Dependencies
+# ---------------------------------------------------------------
+node_modules/
+.pnp
+.pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+jspm_packages/
+bower_components/
+
+# ---------------------------------------------------------------
+#  Build output  (GitHub Actions builds this — never commit it)
+# ---------------------------------------------------------------
+dist/
+dist-ssr/
+build/
+out/
+.output/
+*.local
+
+# ---------------------------------------------------------------
+#  Vite / bundler caches
+# ---------------------------------------------------------------
+.vite/
+node_modules/.vite/
+node_modules/.cache/
+.rollup.cache/
+.parcel-cache/
+.turbo/
+.swc/
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# ---------------------------------------------------------------
+#  Environment & secrets  (NEVER commit these)
+# ---------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.json
+
+# ---------------------------------------------------------------
+#  Logs
+# ---------------------------------------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# ---------------------------------------------------------------
+#  Testing / coverage
+# ---------------------------------------------------------------
+coverage/
+*.lcov
+.nyc_output/
+playwright-report/
+test-results/
+
+# ---------------------------------------------------------------
+#  Editors & IDEs
+# ---------------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*~
+.project
+.classpath
+.settings/
+
+# ---------------------------------------------------------------
+#  OS generated files
+# ---------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ---------------------------------------------------------------
+#  Python (image-optimisation / YouTube sync scripts)
+# ---------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+.Python
+pip-log.txt
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# ---------------------------------------------------------------
+#  Misc
+# ---------------------------------------------------------------
+*.tgz
+*.tar.gz
+*.zip
+.cache/
+.temp/
+tmp/
+.eslintcache
+.stylelintcache
+.netlify/
+.vercel/

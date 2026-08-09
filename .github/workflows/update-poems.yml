@@ -1,0 +1,47 @@
+name: Update Poems from YouTube
+
+# Keeps public/data/poems.json in sync with the YouTube channel.
+# Committing that file automatically triggers the Deploy workflow.
+
+on:
+  schedule:
+    # Every day at 00:30 UTC (06:00 IST)
+    - cron: '30 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-poems
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install yt-dlp
+        run: python -m pip install --upgrade yt-dlp
+
+      - name: Fetch latest poems
+        run: python scripts/update_poems.py
+
+      - name: Commit changes if any
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add public/data/poems.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: sync poems from YouTube [skip ci]"
+            git push
+          fi
