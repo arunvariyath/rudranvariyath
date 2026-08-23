@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T08:08:46.812Z",
+  "generatedAt": "2026-08-23T08:19:26.798Z",
   "categories": {
     "gallery": [],
     "books": [],
@@ -136,6 +136,16 @@
         "blur": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAQCdASoOAA4ABIByJYgCdAEDRVZjuwAA+uPpGP11m/QOk0RX0osjiHbu9SCU40as5Y67ViBDZrhAPBLV/dg+IUAaptfYR7gvWFAEW75S87ZIwCnXgAAA"
       },
       {
+        "key": "chinju",
+        "title": "Chinju",
+        "src": "images/family/_opt/chinju.webp",
+        "thumb": "images/family/_opt/chinju.thumb.webp",
+        "width": 400,
+        "height": 400,
+        "aspectRatio": 1,
+        "blur": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABwAQCdASoOAA4ABIByJYwCdAF1AAD+3tUZO9GksAA="
+      },
+      {
         "key": "das",
         "title": "Das",
         "src": "images/family/_opt/das.webp",
@@ -144,6 +154,16 @@
         "height": 400,
         "aspectRatio": 1,
         "blur": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADQAQCdASoOAA4ABIByJbACdADZOTxGwAD+kbdcpWVNVSWzTN8sQz52lA+dvQov414RFARp9DO3DbwFZXz7uQgQjxGJT5r9Sixzre6FJ9nI2AAA"
+      },
+      {
+        "key": "haridas",
+        "title": "Haridas",
+        "src": "images/family/_opt/haridas.webp",
+        "thumb": "images/family/_opt/haridas.thumb.webp",
+        "width": 400,
+        "height": 400,
+        "aspectRatio": 1,
+        "blur": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABwAQCdASoOAA4ABIByJYwCdAF1AAD+3tUZO9GksAA="
       },
       {
         "key": "jayarani",
@@ -174,6 +194,16 @@
         "height": 400,
         "aspectRatio": 1,
         "blur": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADwAQCdASoOAA4ABIByJbACdAEWfdUq1qAA/rYUrKZMQhpGR6vJP1QV+llV2W2MlVyPkTC7vxE3qKamDHBY1NbQH8DpSbmMWNwfRvViiD82gM/FyhR7brvt9UAAAA=="
+      },
+      {
+        "key": "mithra",
+        "title": "Mithra",
+        "src": "images/family/_opt/mithra.webp",
+        "thumb": "images/family/_opt/mithra.thumb.webp",
+        "width": 400,
+        "height": 400,
+        "aspectRatio": 1,
+        "blur": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABwAQCdASoOAA4ABIByJYwCdAF1AAD+3tUZO9GksAA="
       },
       {
         "key": "mohandas",
@@ -226,6 +256,16 @@
         "blur": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADQAQCdASoOAA4ABIByJbACdACWfppysAD2TPsuMZzu60hOCDmasWhIOYNtL/lYv8OVlO5gc7NZpOmLXwQsdmk8Z6Tm0HZWUo3or4dszfP/1ih+SoxkOGbD16VQAA=="
       },
       {
+        "key": "shreya",
+        "title": "Shreya",
+        "src": "images/family/_opt/shreya.webp",
+        "thumb": "images/family/_opt/shreya.thumb.webp",
+        "width": 400,
+        "height": 400,
+        "aspectRatio": 1,
+        "blur": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABwAQCdASoOAA4ABIByJYwCdAF1AAD+3tUZO9GksAA="
+      },
+      {
         "key": "shylaja",
         "title": "Shylaja",
         "src": "images/family/_opt/shylaja.webp",
@@ -236,6 +276,16 @@
         "blur": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAwAgCdASoOAA4ABIByJbACdAYxjGDX6Q4K4AD+6ktBnpxfCxmSQQf7oT0fRNad++10VDxghIcOH21idj0v7WcLqs97rijA0HqrKfP6l/qy/fJem3qNjFXC4NRLrWiVIgLcl54+foKLAAAA"
       },
       {
+        "key": "suma",
+        "title": "Suma",
+        "src": "images/family/_opt/suma.webp",
+        "thumb": "images/family/_opt/suma.thumb.webp",
+        "width": 400,
+        "height": 400,
+        "aspectRatio": 1,
+        "blur": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABwAQCdASoOAA4ABIByJYwCdAF1AAD+3tUZO9GksAA="
+      },
+      {
         "key": "vijil",
         "title": "Vijil",
         "src": "images/family/_opt/vijil.webp",
@@ -244,6 +294,16 @@
         "height": 400,
         "aspectRatio": 1,
         "blur": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAQAgCdASoOAA4ABIByJQBWACPySodiflIwAPlHd5Vk5EFQFTygerhY7qysAsFYKZrqYe4gKrs+WbBfKBtlNCH1wqJQMUfXD2cVPUw2jAA="
+      },
+      {
+        "key": "vineeth",
+        "title": "Vineeth",
+        "src": "images/family/_opt/vineeth.webp",
+        "thumb": "images/family/_opt/vineeth.thumb.webp",
+        "width": 400,
+        "height": 400,
+        "aspectRatio": 1,
+        "blur": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABwAQCdASoOAA4ABIByJYwCdAF1AAD+3tUZO9GksAA="
       },
       {
         "key": "vipin",
