@@ -209,6 +209,7 @@ export const en = {
       wifeFamily: "Shylaja's Family",
       aparnaFamily: "Aparna's Family",
       vijilFamily: "Vijil's Family",
+      malavikaFamily: "Malavika's Family",
     } as Record<string, string>,
     /**
      * `occupation` is optional — leave it as an empty string to hide the line.
@@ -258,11 +259,13 @@ export const en = {
       vipin: { name: 'Vipin', relation: 'Brother', context: "Vijil's brother", occupation: '' },
 
 
-        // ── Malavika's family (Anoop's wife) ──────────────────────
+      // ── Malavika's family (Anoop's wife) ──────────────────────
       haridas: { name: 'Haridas', relation: 'Father', context: "Anoop's father-in-law", occupation: '' },
-      malu_mom: { name: 'malu_mom', relation: 'Mother', context: "Anoop's mother-in-law", occupation: '' },
-      shreya: { name: 'shreya', relation: 'Mother', context: "Anoop's sister-in-law", occupation: '' },
-      chinju: { name: 'chinju', relation: 'Mother', context: "Anoop's sister-in-law", occupation: '' },
+      suma: { name: 'Suma', relation: 'Mother', context: "Anoop's mother-in-law", occupation: '' },
+      chinju: { name: 'Chinju', relation: 'Sister', context: "Malavika's sister", occupation: '' },
+      vineeth: { name: 'Vineeth', relation: "Sister's husband", context: "Chinju's husband", occupation: '' },
+      mithra: { name: 'Mithra', relation: 'Niece', context: "Vineeth & Chinju's daughter", occupation: '' },
+      shreya: { name: 'Shreya', relation: 'Sister', context: "Malavika's sister", occupation: '' },
 
     } as Record<
       string,

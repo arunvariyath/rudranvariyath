@@ -71,9 +71,11 @@ export const people: Record<string, Person> = {
 
   // ── Daughter-in-law's family ─────────────────────────────────
   haridas: { gender: 'male', photo: 'haridas.webp' },
-  malu_mom: { gender: 'female', photo: 'malu_mom.webp' },
+  suma: { gender: 'female', photo: 'suma.webp' },
   shreya: { gender: 'female', photo: 'shreya.webp' },
   chinju: { gender: 'female', photo: 'chinju.webp' },
+  vineeth: { gender: 'male', photo: 'vineeth.webp' },
+  mithra: { gender: 'female', photo: 'mithra.webp' },
 
   // ── Son-in-law's family ──────────────────────────────────────
   das: { gender: 'male', photo: 'das.webp' },
@@ -169,6 +171,19 @@ export const branches: Branch[] = [
     parents: ['das', 'vijaya'],
     siblings: [{ primary: 'vipin' }],
   },
+  {
+    key: 'malavikaFamily',
+    connectedTo: 'malavika',
+    parents: ['haridas', 'suma'],
+    siblings: [
+      {
+        primary: 'chinju',
+        spouse: 'vineeth',
+        children: ['mithra'],
+      },
+      { primary: 'shreya' },
+    ],
+  },
 ];
 
 /* ── Tree shapes (used by the "Tree" view) ─────────────────── */
@@ -195,7 +210,7 @@ export const familyTree: TreeNode = {
           unit: { primary: 'anjitha', spouse: 'vijil' },
           children: [{ unit: { primary: 'rishikesh' } }],
         },
-        { unit: { primary: 'anoop' } },
+        { unit: { primary: 'anoop', spouse: 'malavika' } },
       ],
     },
   ],

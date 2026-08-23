@@ -209,6 +209,7 @@ export const ml: Translation = {
       wifeFamily: 'ശൈലജയുടെ കുടുംബം',
       aparnaFamily: 'അപർണ്ണയുടെ കുടുംബം',
       vijilFamily: 'വിജിലിന്റെ കുടുംബം',
+      malavikaFamily: 'മാളവികയുടെ കുടുംബം',
     },
     /**
      * `occupation` നിർബന്ധമല്ല — ഒഴിവാക്കാൻ ശൂന്യമായി ('') വിടുക.
@@ -228,8 +229,10 @@ export const ml: Translation = {
       anjitha: { name: 'അഞ്ജിത ആർ. വാരിയത്ത്', relation: 'മകൾ', context: 'രുദ്രന്റെ മകൾ', occupation: '' },
       vijil: { name: 'വിജിൽ', relation: 'മരുമകൻ', context: 'അഞ്ജിതയുടെ ഭർത്താവ്', occupation: '' },
       anoop: { name: 'അനൂപ് ആർ. വാരിയത്ത്', relation: 'മകൻ', context: 'രുദ്രന്റെ മകൻ', occupation: '' },
+      malavika: { name: 'മാളവിക', relation: 'മരുമകൾ', context: 'അനൂപിന്റെ ഭാര്യ', occupation: '' },
       adhisree: { name: 'അധിശ്രീ എ.വി', relation: 'പേരക്കുട്ടി', context: 'അരുൺ–അപർണ്ണ ദമ്പതികളുടെ മകൾ', occupation: '' },
       rishikesh: { name: 'ഋഷികേശ്', relation: 'പേരക്കുട്ടി', context: 'അഞ്ജിത–വിജിൽ ദമ്പതികളുടെ മകൻ', occupation: '' },
+      rithudev: { name: 'ഋതുദേവ്', relation: 'പേരക്കുട്ടി', context: 'അഞ്ജിത–വിജിൽ ദമ്പതികളുടെ മകൻ', occupation: '' },
 
       // ── ശൈലജയുടെ കുടുംബം (കവിയുടെ ഭാര്യ) ──────────────────
       venugopalamenon: { name: 'വേണുഗോപാല മേനോൻ', relation: 'അച്ഛൻ', context: 'രുദ്രന്റെ ഭാര്യാപിതാവ്', occupation: '' },
@@ -253,6 +256,14 @@ export const ml: Translation = {
       das: { name: 'ദാസ്', relation: 'അച്ഛൻ', context: 'അഞ്ജിതയുടെ ഭർതൃപിതാവ്', occupation: '' },
       vijaya: { name: 'വിജയ', relation: 'അമ്മ', context: 'അഞ്ജിതയുടെ ഭർതൃമാതാവ്', occupation: '' },
       vipin: { name: 'വിപിൻ', relation: 'സഹോദരൻ', context: 'വിജിലിന്റെ സഹോദരൻ', occupation: '' },
+
+      // ── മാളവികയുടെ കുടുംബം (അനൂപിന്റെ ഭാര്യ) ───────────────
+      haridas: { name: 'ഹരിദാസ്', relation: 'അച്ഛൻ', context: 'അനൂപിന്റെ ഭാര്യാപിതാവ്', occupation: '' },
+      suma: { name: 'സുമ', relation: 'അമ്മ', context: 'അനൂപിന്റെ ഭാര്യാമാതാവ്', occupation: '' },
+      chinju: { name: 'ചിഞ്ജു', relation: 'സഹോദരി', context: 'മാളവികയുടെ സഹോദരി', occupation: '' },
+      vineeth: { name: 'വിനീത്', relation: 'സഹോദരിയുടെ ഭർത്താവ്', context: 'ചിഞ്ജുവിന്റെ ഭർത്താവ്', occupation: '' },
+      mithra: { name: 'മിഥ്ര', relation: 'അനന്തരവൾ', context: 'വിനീത്–ചിഞ്ജു ദമ്പതികളുടെ മകൾ', occupation: '' },
+      shreya: { name: 'ശ്രേയ', relation: 'സഹോദരി', context: 'മാളവികയുടെ സഹോദരി', occupation: '' },
     },
   },
 
