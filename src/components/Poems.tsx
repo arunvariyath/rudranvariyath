@@ -126,7 +126,19 @@ export function Poems() {
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/25 to-slate-900/40 group-hover:from-slate-900/85 transition-colors" />
 
                       <motion.button
-                        onClick={() => setSelectedVideo(poem.poemSrc)}
+                        onClick={() => {
+                          // Embed-disabled videos can't play in the modal
+                          // iframe — send them to YouTube directly.
+                          if (poem.embeddable === false) {
+                            window.open(
+                              `https://www.youtube.com/watch?v=${poem.poemSrc}`,
+                              '_blank',
+                              'noopener,noreferrer'
+                            );
+                            return;
+                          }
+                          setSelectedVideo(poem.poemSrc);
+                        }}
                         aria-label={t.poems.watchLabel}
                         className="absolute inset-0 flex items-center justify-center"
                         whileHover={{ scale: 1.1 }}

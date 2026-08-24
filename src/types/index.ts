@@ -3,6 +3,11 @@ export interface Poem {
   poemTitle: string;
   /** `YYYYMMDD` (from yt-dlp) or an ISO date string. Optional — UI hides it when absent. */
   publishedAt?: string;
+  /**
+   * `false` when YouTube refuses embedding (private / disabled by owner).
+   * Those videos skip the in-page modal and open on youtube.com instead.
+   */
+  embeddable?: boolean;
 }
 
 /** Language-independent item — text is resolved from locale files via `key`. */

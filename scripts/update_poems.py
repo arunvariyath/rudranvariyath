@@ -13,6 +13,10 @@ import json
 import os
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
+from urllib.error import HTTPError, URLError
+from urllib.parse import quote
+from urllib.request import urlopen
 
 CHANNEL_URL = "https://www.youtube.com/channel/UCA__E2cnlxfRKW3PoG5CL0Q/videos"
 OUTPUT_PATH = os.path.join("public", "data", "poems.json")
@@ -68,6 +72,41 @@ def extract_date(video: dict) -> str:
     return ""
 
 
+def is_embeddable(video_id: str) -> bool:
+    """
+    Return False when YouTube refuses to embed this video.
+
+    The oembed endpoint answers 200 only for videos that allow embedding;
+    private / owner-disabled videos get 401 and deleted ones 404. Any network
+    hiccup counts as "embeddable" so a flaky connection can never hide content.
+    """
+    url = (
+        "https://www.youtube.com/oembed?url="
+        f"{quote(f'https://www.youtube.com/watch?v={video_id}', safe='')}"
+        "&format=json"
+    )
+    try:
+        with urlopen(url, timeout=20) as res:
+            return res.status == 200
+    except HTTPError as exc:
+        return exc.code < 400
+    except URLError:
+        return True
+
+
+def flag_embeddable(poems: list) -> None:
+    """Attach `embeddable: false` to entries the modal player cannot show."""
+    ids = [p["poemSrc"] for p in poems]
+    with ThreadPoolExecutor(max_workers=16) as pool:
+        results = list(pool.map(is_embeddable, ids))
+
+    blocked = sum(1 for ok in results if not ok)
+    for poem, ok in zip(poems, results):
+        if not ok:
+            poem["embeddable"] = False
+    print(f"{blocked} video(s) refuse embedding — flagged to open on YouTube.")
+
+
 def write_poems(videos: list) -> None:
     """Write the poem list in the shape the website expects."""
     poems = []
@@ -94,6 +133,8 @@ def write_poems(videos: list) -> None:
 
     dated = sum(1 for p in poems if "publishedAt" in p)
     print(f"{dated}/{len(poems)} entries have an upload date.")
+
+    flag_embeddable(poems)
 
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8") as fh:
