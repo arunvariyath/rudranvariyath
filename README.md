@@ -4,7 +4,7 @@ A modern, bilingual (English / മലയാളം), fully responsive website for
 
 Built with **React 19 + TypeScript + Vite + Tailwind CSS v4 + Framer Motion**, deployed automatically to **GitHub Pages** via **GitHub Actions**.
 
-🔗 **Live site:** https://arvapps-com.github.io/rudranvariyath/
+🔗 **Live site:** https://arunvariyath.github.io/rudranvariyath/
 
 ---
 
@@ -149,7 +149,7 @@ mobile menu and footer links automatically. Nothing else needs editing.
 ### Run locally
 
 ```bash
-git clone https://github.com/arvapps-com/rudranvariyath.git
+git clone https://github.com/arunvariyath/rudranvariyath.git
 cd rudranvariyath
 
 npm install

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Feather } from 'lucide-react';
 import { cn } from '../utils/cn';
@@ -19,9 +19,27 @@ export function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (id: string) => {
-    setIsOpen(false);
+  /**
+   * Starting a smooth scroll in the same tick as the mobile menu's close
+   * makes the browser discard it (the exit animation's re-render aborts the
+   * scroll before its first frame). When the menu is open we therefore close
+   * it first and scroll once its exit animation has finished.
+   */
+  const MENU_EXIT_MS = 350;
+  const scrollTimer = useRef<number | undefined>(undefined);
+
+  const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleNavClick = (id: string) => {
+    window.clearTimeout(scrollTimer.current);
+    if (isOpen) {
+      setIsOpen(false);
+      scrollTimer.current = window.setTimeout(() => scrollToSection(id), MENU_EXIT_MS);
+    } else {
+      scrollToSection(id);
+    }
   };
 
   return (
