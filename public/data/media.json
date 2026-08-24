@@ -1,10 +1,20 @@
 {
-  "generatedAt": "2026-08-23T08:19:26.798Z",
+  "generatedAt": "2026-08-24T03:41:00.773Z",
   "categories": {
     "gallery": [],
     "books": [],
     "awards": [],
     "family": [
+      {
+        "key": "adhidev",
+        "title": "Adhidev",
+        "src": "images/family/_opt/adhidev.webp",
+        "thumb": "images/family/_opt/adhidev.thumb.webp",
+        "width": 400,
+        "height": 400,
+        "aspectRatio": 1,
+        "blur": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABwAQCdASoOAA4ABIByJYwCdAF1AAD+3tUZO9GksAA="
+      },
       {
         "key": "adhisree",
         "title": "Adhisree",
@@ -103,7 +113,7 @@
         "width": 400,
         "height": 400,
         "aspectRatio": 1,
-        "blur": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAABwAgCdASoOAA4ABIByJaACdH8AGLvXYqsrnJLIAP5kzjHquD7qiYCdVUbs3isBZhwgKL8ENw7cXX9zEZWyeSDeT9K5cgoa0aONvK1vrQfDdpPJFfsUK32zceNzohN1UAA="
+        "blur": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABwAQCdASoOAA4ABIByJYwCdAF1AAD+3tUZO9GksAA="
       },
       {
         "key": "aryanandha",
@@ -154,6 +164,16 @@
         "height": 400,
         "aspectRatio": 1,
         "blur": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADQAQCdASoOAA4ABIByJbACdADZOTxGwAD+kbdcpWVNVSWzTN8sQz52lA+dvQov414RFARp9DO3DbwFZXz7uQgQjxGJT5r9Sixzre6FJ9nI2AAA"
+      },
+      {
+        "key": "father",
+        "title": "Father",
+        "src": "images/family/_opt/father.webp",
+        "thumb": "images/family/_opt/father.thumb.webp",
+        "width": 400,
+        "height": 400,
+        "aspectRatio": 1,
+        "blur": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABwAQCdASoOAA4ABIByJYwCdAF1AAD+3tUZO9GksAA="
       },
       {
         "key": "haridas",
@@ -246,6 +266,16 @@
         "blur": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAACwAQCdASoOAA4ABIByJagCdACf2cOAAP7lMJSyYpeOW7e0CwktGAjgEXXw/r/NwJ+qZZGAz/FZ0yeRDXaAHPWt9zYVTe7lRuKAUFnrnifpz72mGSf+xQAA"
       },
       {
+        "key": "rithudev",
+        "title": "Rithudev",
+        "src": "images/family/_opt/rithudev.webp",
+        "thumb": "images/family/_opt/rithudev.thumb.webp",
+        "width": 400,
+        "height": 400,
+        "aspectRatio": 1,
+        "blur": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABwAQCdASoOAA4ABIByJYwCdAF1AAD+3tUZO9GksAA="
+      },
+      {
         "key": "rudran",
         "title": "Rudran",
         "src": "images/family/_opt/rudran.webp",
@@ -280,6 +310,26 @@
         "title": "Suma",
         "src": "images/family/_opt/suma.webp",
         "thumb": "images/family/_opt/suma.thumb.webp",
+        "width": 400,
+        "height": 400,
+        "aspectRatio": 1,
+        "blur": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABwAQCdASoOAA4ABIByJYwCdAF1AAD+3tUZO9GksAA="
+      },
+      {
+        "key": "venugopalamenon",
+        "title": "Venugopalamenon",
+        "src": "images/family/_opt/venugopalamenon.webp",
+        "thumb": "images/family/_opt/venugopalamenon.thumb.webp",
+        "width": 400,
+        "height": 400,
+        "aspectRatio": 1,
+        "blur": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABwAQCdASoOAA4ABIByJYwCdAF1AAD+3tUZO9GksAA="
+      },
+      {
+        "key": "vijaya",
+        "title": "Vijaya",
+        "src": "images/family/_opt/vijaya.webp",
+        "thumb": "images/family/_opt/vijaya.thumb.webp",
         "width": 400,
         "height": 400,
         "aspectRatio": 1,
