@@ -110,8 +110,8 @@ export const coreGenerations: CoreGeneration[] = [
     key: 'children',
     units: [
       { primary: 'arun', spouse: 'aparna' },
-      { primary: 'anjitha', spouse: 'vijil' },
       { primary: 'anoop', spouse: 'malavika' },
+      { primary: 'anjitha', spouse: 'vijil' },
     ],
   },
   {
@@ -132,6 +132,8 @@ export interface Branch {
   key: string;
   /** The family member through whom this branch connects. */
   connectedTo: string;
+  /** Where the connecting person sits among the siblings in tree view (default: first). */
+  connectorPosition?: 'first' | 'last';
   parents: string[];
   siblings: SiblingUnit[];
 }
@@ -174,6 +176,7 @@ export const branches: Branch[] = [
   {
     key: 'malavikaFamily',
     connectedTo: 'malavika',
+    connectorPosition: 'last',
     parents: ['haridas', 'suma'],
     siblings: [
       {
@@ -206,11 +209,14 @@ export const familyTree: TreeNode = {
           unit: { primary: 'arun', spouse: 'aparna' },
           children: [{ unit: { primary: 'adhisree' } }],
         },
+        { unit: { primary: 'anoop', spouse: 'malavika' } },
         {
           unit: { primary: 'anjitha', spouse: 'vijil' },
-          children: [{ unit: { primary: 'rishikesh' } }],
+          children: [
+            { unit: { primary: 'rishikesh' } },
+            { unit: { primary: 'rithudev' } },
+          ],
         },
-        { unit: { primary: 'anoop', spouse: 'malavika' } },
       ],
     },
   ],
@@ -227,12 +233,19 @@ export function branchToTree(branch: Branch): TreeNode {
     children: sibling.children?.map((child) => ({ unit: { primary: child } })),
   }));
 
+  const connectorNode: TreeNode = {
+    unit: { primary: branch.connectedTo },
+    isConnector: true,
+  };
+
+  const children =
+    branch.connectorPosition === 'last'
+      ? [...siblingNodes, connectorNode]
+      : [connectorNode, ...siblingNodes];
+
   return {
     unit: { primary: branch.parents[0], spouse: branch.parents[1] },
-    children: [
-      { unit: { primary: branch.connectedTo }, isConnector: true },
-      ...siblingNodes,
-    ],
+    children,
   };
 }
 
